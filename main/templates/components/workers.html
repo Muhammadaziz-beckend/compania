@@ -1,0 +1,101 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block catigori %}
+    <a href="/?catigori=">All</a>
+    {% for i in catigori %}
+        <a href="/?catigori={{i.name}}">{{i.name}} </a>
+    {% endfor %}
+{% endblock catigori %}
+
+
+{% block form %}
+<form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+    <h2>Add Worker</h2>
+    {% csrf_token %}
+    <button type='button' class="exit"> X </button>
+    {% comment %} img {% endcomment %}
+    <label for="id_img">
+        <p>Изображения сатрудника:</p>
+        <input type="file" name="img" accept="image/*" required="" id="id_img">
+        {{form.img.error}}
+    </label>
+    {% comment %} name {% endcomment %}
+    <label for="id_name">
+        <p>Имя:</p>
+        <input type="text" name="name" calass="input-name" maxlength="60" required="" id="id_name">
+    </label>
+
+    {% comment %} email {% endcomment %}
+    <label for="id_email">
+        <p>Email:</p>
+        <input type="email" name="email" calass="input-name" maxlength="254" required="" id="id_email">
+        {{form.email.error}}
+    </label>
+
+    {% comment %} jod {% endcomment %}
+    <label for="id_jod">
+        <p>Работа:</p>
+        <select name="jod" required="" id="id_jod">
+            <option value="" selected="">Не выбранно</option>
+            {% for item in catigori %}
+            <option value="{{item.id}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+    </label>
+        
+    
+
+    <button type="submit">Добавить</button>
+</form>
+{% endblock form %} 
+
+
+{% block catigori_mobail %}
+    <select class='select-model' name="" id="">
+        <option value="/?catigori=">
+            выберите катигорию
+        </option>
+        <option value="/?catigori=">
+               <a href="/?catigori=">All</a>
+        </option>
+        {% for i in catigori %}
+        <option value="/?catigori={{i.name}}">
+            <a href="/?catigori={{i.name}}">{{i.name}} </a>
+        </option>
+            {% endfor %}
+                
+    </select>
+{% endblock catigori_mobail %}
+
+
+{% block add %}
+    <button class='foggel-form'><img src="{% static 'img/+.svg' %}" alt="+"> New Employee</button>
+{% endblock add %}
+
+
+{% block sorch %}
+    <form action="{% url "home" %}" method="get">
+        <input type="text" name='sorch'>
+        <button type="submit"><img src="{% static 'img/sorch.svg' %}" alt="sorch"></button>
+    </form>
+{% endblock sorch %}
+
+{% block main %}
+    {% include "components/carts.html" %}
+    {% include "components/page.html" %}
+{% endblock main %}
+
+
+{% block delite %}
+
+<p>Вы точно хотите удолить "<b>{{delite.name}}</b>"</p>
+
+<div class="chois">
+    <a href="">Отмена</a>
+    <a href="?deliteOk={{ delite.id }}">Ок</a>
+</div>
+
+
+{% endblock delite %}

@@ -1,0 +1,73 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block add %}
+    <button class='foggel-form'><img src="{% static 'img/+.svg' %}" alt="+"> New Project</button>
+{% endblock add %} 
+
+{% block form %}
+<form action="{% url "order" %}" method="post" enctype="multipart/form-data">
+    <h2>Add Order</h2>
+    {% csrf_token %}
+    <button type='button' class="exit"> X </button>
+    {% comment %} {{form.as_p}} {% endcomment %}
+
+    {% comment %} img {% endcomment %}
+    <label for="id_img">
+        <p>Изображения:</p>
+        <input type="file" name="img" accept="image/*" required="" id="id_img">
+    </label>
+
+    {% comment %} order name {% endcomment %}
+    <label for="id_name">
+        <p>Названия задания:</p>
+        <input type="text" name="name" maxlength="25" required="" id="id_name">
+    </label>
+
+    {% comment %} dicript {% endcomment %}
+    <label for="id_description">
+        <p>Описание:</p>
+        <textarea name="description" cols="40" rows="10" required="" id="id_description" style="width: 269px; height: 53px;"></textarea>
+    </label>
+
+    {% comment %} meny-to-meny {% endcomment %}
+    <label for="id_who_develops">
+        <p>Кто будет разрабатывать:</p>
+        
+        <select name="who_develops" required="" id="id_who_develops" multiple="">
+            {% for user in work %}
+                <option value="{{user.id}}">{{user}}</option>
+            {% endfor %}
+        </select>
+    </label>
+
+    {% comment %} date-end {% endcomment %}
+    <label for="id_date_end">
+        <p>Срок до:</p>
+        <input type="date" name="date_end" required="" id="id_date_end">
+    </label>
+
+    <button type="submit">Добавить</button>
+</form>
+{% endblock form %} 
+
+{% block delite %}
+<p>Вы точно хотите удолить "<b>{{delite.name}}</b>"</p>
+
+<div class="chois">
+    <a href="">Отмена</a>
+    <a href="?deliteOk={{ delite.id }}">Ок</a>
+</div>               
+{% endblock delite %} 
+
+{% block sorch %}
+    <form action="{% url "order" %}" method="get">
+        <input type="text" name='sorch'>
+        <button type="submit"><img src="{% static 'img/sorch.svg' %}" alt="sorch"></button>
+    </form>
+{% endblock sorch %}
+
+{% block main %}
+{% include "components/main_carts.html" %}
+{% include "components/page.html" %}
+{% endblock main %}

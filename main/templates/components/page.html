@@ -1,0 +1,47 @@
+{% load static %}
+
+{% if img_user.has_previous or img_user.has_next %}
+    <nav id='nav'>
+        <ul class="pagination">
+            {% if img_user.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ img_user.previous_page_number }}{% if catigori_peng %}&catigori={% if catigori_peng  %}{{catigori_peng}}{% endif %} {% endif %}">
+                        <svg width="12.560059" height="20.910522" viewBox="0 0 12.5601 20.9105" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <desc>
+                                    Created with Pixso.
+                            </desc>
+                            <defs/>
+                            <path id="Vector" d="M10.8 20.63L0.33 11.19C-0.12 10.8 -0.12 10.1 0.33 9.71L10.8 0.27C11.47 -0.33 12.56 0.11 12.56 1.01L12.56 19.89C12.56 20.79 11.47 21.23 10.8 20.63Z" fill="#A098AE" fill-opacity="1.000000" fill-rule="nonzero"/>
+                        </svg>     
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for i in img_user.paginator.page_range %}
+                {% if img_user.number == i %}
+                    <li class="page-item-num active">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                {% else %}
+                    <li class="page-item-num">
+                        <a class="page-link" href="?page={{ i }}{% if catigori_peng %}&catigori={% if catigori_peng  %}{{catigori_peng}}{% endif %} {% endif %}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if img_user.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ img_user.next_page_number }}{% if catigori_peng %}&catigori={% if catigori_peng  %}{{catigori_peng}}{% endif %} {% endif %} ">
+                        <svg width="12.560059" height="20.910522" viewBox="0 0 12.5601 20.9105" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <desc>
+                                    Created with Pixso.
+                            </desc>
+                            <defs/>
+                            <path id="Vector" d="M1.75 0.27L12.22 9.71C12.67 10.1 12.67 10.8 12.22 11.19L1.75 20.63C1.08 21.23 0 20.79 0 19.89L0 1.01C0 0.11 1.08 -0.33 1.75 0.27Z" fill="#A098AE" fill-opacity="1.000000" fill-rule="nonzero"/>
+                        </svg>                     
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

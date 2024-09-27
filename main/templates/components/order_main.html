@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block main %}
+<div class="order_blok">
+    <div class="left">
+        <img src="{% static "img/cover.svg" %}" alt="" class="fon">
+        <div class="top">
+            <img src="{{order.img.url}}" alt="asd">
+            <h2>{{order.name}}</h2>
+            
+            <div class="discription">
+                <h3>Description:</h3>
+                <p>{{order.description}}</p>
+            </div>
+            <div class="time">
+                <li>Date-End</li>
+                <span>Закончить до: {{order.date_end}}</span>
+            </div>
+            
+        </div>
+    </div>
+    <div class="reght">
+        <div class="blok_content_dev">
+            <h3>Developers</h3>
+        </div>
+        {% for i in dev.who_develops.all %}
+            <div class="blok_dev">
+                <div class="left_blok">
+                    <img src="{{i.img.url}}" alt="">
+                </div>
+                <div class="reght_blok">
+                    <h5> {{i.name}}</h5>
+                    <p>jod: {{i.jod}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}
