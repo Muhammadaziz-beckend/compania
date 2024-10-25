@@ -1,0 +1,15 @@
+services:
+  web:
+    image: python:3.12
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: python app.py
+  nginx:
+    image: nginx
+    ports:
+      - "8080:80"
